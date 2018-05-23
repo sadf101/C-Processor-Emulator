@@ -1,16 +1,19 @@
 #include <stdio.h>
 
+/*Datatype Definitions*/
 typedef unsigned char byte;
 typedef unsigned int memAddr;
 typedef unsigned char regAddr;
 typedef unsigned char bool;
 
+/*Macros*/
 #define true 1
 #define false 0
 #define registers 4
 #define memorySize 2048
 #define instructionLength 4
 
+/*Emulated System Data*/
 memAddr programCounter;
 bool zeroFlag;
 bool signFlag;
@@ -18,7 +21,8 @@ bool running;
 byte registerFile[registers];
 byte memoryFile[memorySize];
 
-/*enum instruction {
+/*todo  -  Macro the switch cases as the instruction names and replace in decodeExecuteInstruction()
+enum instruction {
   HALT,
   LDR,
   LDV,
@@ -45,6 +49,7 @@ void init(void) {
   running = true;
 }
 
+/*todo  -  put instruction functions into separate module*/
 void halt(void) {
   running = false;
 }
@@ -154,6 +159,7 @@ byte *fetchInstruction() {
   return &memoryFile[programCounter];
 }
 
+/*todo  -  macro the magic numbers here*/
 void decodeExecuteInstruction(byte *currentInstruction) {
   byte leastSigByte = *currentInstruction;
   if (leastSigByte == 0) {
@@ -248,12 +254,15 @@ void emulate(void) {
   }
 }
 
+/*todo  -  fill with program loading code*/
 void loadProgram(void) {
-
 }
 
 int main() {
+  printf("***PROGRAM_LOADING***\n");
   loadProgram();
+  printf("***PROGRAM_LOADED***\n");
+  printf("***EMULATION_START***\n");
   emulate();
-  printf("Done\n");
+  printf("***EMULATION_COMPLETE***\n");
 }
